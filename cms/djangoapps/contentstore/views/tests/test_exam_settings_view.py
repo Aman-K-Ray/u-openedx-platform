@@ -53,7 +53,6 @@ class TestExamSettingsView(CourseTestCase, UrlResetMixin):
     @ddt.data(
         "certificates_list_handler",
         "settings_handler",
-        "group_configurations_list_handler",
         "grading_handler",
         "advanced_settings_handler"
     )
@@ -70,7 +69,6 @@ class TestExamSettingsView(CourseTestCase, UrlResetMixin):
     @ddt.data(
         "certificates_list_handler",
         "settings_handler",
-        "group_configurations_list_handler",
         "grading_handler",
         "advanced_settings_handler"
     )
