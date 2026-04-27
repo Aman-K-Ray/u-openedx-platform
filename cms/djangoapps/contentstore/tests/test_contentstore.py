@@ -1491,8 +1491,6 @@ class ContentStoreTest(ContentStoreTestCase):
             test_get_html('import_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_EXPORT, True):
             test_get_html('export_handler')
-        with override_waffle_flag(toggles.LEGACY_STUDIO_COURSE_TEAM, True):
-            test_get_html('course_team_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_SCHEDULE_DETAILS, True):
             test_get_html('settings_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_GRADING, True):

@@ -55,7 +55,10 @@ def course_team_handler(request, course_key_string=None, email=None):
     if 'application/json' in request.META.get('HTTP_ACCEPT', 'application/json'):
         return _course_team_user(request, course_key, email)
     elif request.method == 'GET':  # assume html
-        return redirect(get_course_team_url(course_key))
+        course_team_url = get_course_team_url(course_key)
+        if course_team_url:
+            return redirect(course_team_url)
+        return HttpResponseNotFound()
     else:
         return HttpResponseNotFound()
 

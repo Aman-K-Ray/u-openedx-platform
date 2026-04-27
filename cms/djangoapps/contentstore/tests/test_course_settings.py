@@ -166,7 +166,6 @@ class CourseAdvanceSettingViewTest(CourseTestCase, MilestonesTestCaseMixin):
     @override_waffle_flag(toggles.LEGACY_STUDIO_ADVANCED_SETTINGS, True)
     @override_waffle_flag(toggles.LEGACY_STUDIO_IMPORT, True)
     @override_waffle_flag(toggles.LEGACY_STUDIO_EXPORT, True)
-    @override_waffle_flag(toggles.LEGACY_STUDIO_COURSE_TEAM, True)
     @override_waffle_flag(toggles.LEGACY_STUDIO_SCHEDULE_DETAILS, True)
     @override_waffle_flag(toggles.LEGACY_STUDIO_GRADING, True)
     def test_disable_advanced_settings_feature(self, disable_advanced_settings):
@@ -182,7 +181,6 @@ class CourseAdvanceSettingViewTest(CourseTestCase, MilestonesTestCaseMixin):
             for handler in (
                 'import_handler',
                 'export_handler',
-                'course_team_handler',
                 'settings_handler',
                 'grading_handler',
             ):
