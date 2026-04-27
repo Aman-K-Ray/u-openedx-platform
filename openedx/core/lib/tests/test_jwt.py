@@ -18,13 +18,22 @@ test_timeout = 1000
 test_now = int(time())
 time_snapshot = datetime.datetime.fromtimestamp(test_now, tz=datetime.UTC)
 test_claims = {"foo": "bar", "baz": "quux", "meaning": 42}
-expected_full_token = {
-    "lms_user_id": test_user_id,
-    "iat": test_now,
-    "exp": test_now + test_timeout,
-    "iss": "token-test-issuer",  # these lines from test_settings.py
-    "version": "1.2.0",  # these lines from test_settings.py
-}
+
+
+class JwtTestCase(unittest.TestCase):
+    """
+    Base class that sets up a fresh timestamp and expected token for each test.
+    """
+    def setUp(self):
+        super().setUp()
+        self.test_now = int(time())
+        self.expected_full_token = {
+            "lms_user_id": test_user_id,
+            "iat": self.test_now,
+            "exp": self.test_now + test_timeout,
+            "iss": "token-test-issuer",  # these lines from test_settings.py
+            "version": "1.2.0",  # these lines from test_settings.py
+        }
 
 
 @skip_unless_lms
@@ -35,22 +44,22 @@ class TestSign(unittest.TestCase):
     """
 
     def test_create_jwt(self):
-        token = create_jwt(test_user_id, test_timeout, {}, test_now)
+        token = create_jwt(test_user_id, test_timeout, {}, self.test_now)
 
         decoded = unpack_and_verify(token)
         assert decoded == expected_full_token
 
     def test_create_jwt_with_claims(self):
-        token = create_jwt(test_user_id, test_timeout, test_claims, test_now)
+        token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
 
-        expected_token_with_claims = expected_full_token.copy()
+        expected_token_with_claims = self.expected_full_token.copy()
         expected_token_with_claims.update(test_claims)
 
         decoded = unpack_and_verify(token)
         assert decoded == expected_token_with_claims
 
     def test_malformed_token(self):
-        token = create_jwt(test_user_id, test_timeout, test_claims, test_now)
+        token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
         token = token + "a"
 
         with pytest.raises(InvalidSignatureError):
@@ -65,42 +74,42 @@ class TestUnpack(unittest.TestCase):
     """
 
     def test_unpack_jwt(self):
-        token = create_jwt(test_user_id, test_timeout, {}, test_now)
-        decoded = unpack_jwt(token, test_user_id, test_now)
+        token = create_jwt(test_user_id, test_timeout, {}, self.test_now)
+        decoded = unpack_jwt(token, test_user_id, self.test_now)
 
         assert decoded == expected_full_token
 
     def test_unpack_jwt_with_claims(self):
-        token = create_jwt(test_user_id, test_timeout, test_claims, test_now)
+        token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
 
-        expected_token_with_claims = expected_full_token.copy()
+        expected_token_with_claims = self.expected_full_token.copy()
         expected_token_with_claims.update(test_claims)
 
-        decoded = unpack_jwt(token, test_user_id, test_now)
+        decoded = unpack_jwt(token, test_user_id, self.test_now)
 
         assert decoded == expected_token_with_claims
 
     def test_malformed_token(self):
-        token = create_jwt(test_user_id, test_timeout, test_claims, test_now)
+        token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
         token = token + "a"
 
         with pytest.raises(InvalidSignatureError):
             unpack_jwt(token, test_user_id, test_now)
 
     def test_unpack_token_with_invalid_user(self):
-        token = create_jwt(invalid_test_user_id, test_timeout, {}, test_now)
+        token = create_jwt(invalid_test_user_id, test_timeout, {}, self.test_now)
 
         with pytest.raises(InvalidSignatureError):
             unpack_jwt(token, test_user_id, test_now)
 
     def test_unpack_expired_token(self):
-        token = create_jwt(test_user_id, test_timeout, {}, test_now)
+        token = create_jwt(test_user_id, test_timeout, {}, self.test_now)
 
         with pytest.raises(ExpiredSignatureError):
             unpack_jwt(token, test_user_id, test_now + test_timeout + 1)
 
     def test_missing_expired_lms_user_id(self):
-        payload = expected_full_token.copy()
+        payload = self.expected_full_token.copy()
         del payload['lms_user_id']
         token = _encode_and_sign(payload)
 
@@ -108,7 +117,7 @@ class TestUnpack(unittest.TestCase):
             unpack_jwt(token, test_user_id, test_now)
 
     def test_missing_expired_key(self):
-        payload = expected_full_token.copy()
+        payload = self.expected_full_token.copy()
         del payload['exp']
         token = _encode_and_sign(payload)
 
