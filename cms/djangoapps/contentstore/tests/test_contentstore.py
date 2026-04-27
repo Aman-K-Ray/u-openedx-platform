@@ -1497,8 +1497,9 @@ class ContentStoreTest(ContentStoreTestCase):
             test_get_html('settings_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_GRADING, True):
             test_get_html('grading_handler')
-        with override_waffle_flag(toggles.LEGACY_STUDIO_ADVANCED_SETTINGS, True):
-            test_get_html('advanced_settings_handler')
+        # advanced_settings_handler always redirects to MFE; just verify no 5xx
+        resp = self.client.get_html(get_url('advanced_settings_handler', course_key, 'course_key_string'))
+        self.assertIn(resp.status_code, [200, 302])  # noqa: PT009
         test_get_json('textbooks_list_handler')
 
         # Test that studio updates load
