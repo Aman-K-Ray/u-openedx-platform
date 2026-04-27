@@ -30,7 +30,7 @@ from pytz import UTC
 from xblock.fields import Date
 
 from cms.djangoapps.contentstore import toggles
-from cms.djangoapps.contentstore.utils import reverse_course_url, reverse_usage_url
+from cms.djangoapps.contentstore.utils import get_advanced_settings_url, reverse_course_url, reverse_usage_url
 from cms.djangoapps.models.settings.course_grading import (
     GRADING_POLICY_CHANGED_EVENT_TYPE,
     CourseGradingModel,
@@ -171,7 +171,9 @@ class CourseAdvanceSettingViewTest(CourseTestCase, MilestonesTestCaseMixin):
         If this feature is enabled, only Django Staff/Superuser should be able to access the "Advanced Settings" page.
         For non-staff users the "Advanced Settings" tab link should not be visible.
         """
-        advanced_settings_link_html = f"<a href=\"{self.course_setting_url}\">Advanced Settings</a>".encode('utf-8')  # noqa: UP012  # pylint: disable=line-too-long
+        advanced_settings_link_html = (
+            f'<a href="{get_advanced_settings_url(self.course.id)}">Advanced Settings</a>'
+        ).encode()
 
         with override_settings(FEATURES={
             'DISABLE_ADVANCED_SETTINGS': disable_advanced_settings,

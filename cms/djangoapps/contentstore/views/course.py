@@ -1522,7 +1522,7 @@ def advanced_settings_handler(request, course_key_string):
             return redirect(get_advanced_settings_url(course_key))
         elif 'application/json' in request.META.get('HTTP_ACCEPT', ''):
             if request.method == 'GET':
-                return JsonResponse(CourseMetadata.fetch(course_block))
+                return JsonResponse(advanced_dict)
             else:
                 try:
                     return JsonResponse(

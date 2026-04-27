@@ -78,4 +78,3 @@ class TestExamSettingsView(CourseTestCase, UrlResetMixin):
         resp = self.client.get(outline_url, HTTP_ACCEPT='text/html')
         self.assertEqual(resp.status_code, 200)  # noqa: PT009
         self.assertContains(resp, 'Proctored Exam Settings')
-
