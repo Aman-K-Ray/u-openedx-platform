@@ -1487,10 +1487,6 @@ class ContentStoreTest(ContentStoreTestCase):
         self.assertContains(resp, 'Chapter 2')
 
         # go to various pages
-        with override_waffle_flag(toggles.LEGACY_STUDIO_IMPORT, True):
-            test_get_html('import_handler')
-        with override_waffle_flag(toggles.LEGACY_STUDIO_EXPORT, True):
-            test_get_html('export_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_COURSE_TEAM, True):
             test_get_html('course_team_handler')
         with override_waffle_flag(toggles.LEGACY_STUDIO_SCHEDULE_DETAILS, True):

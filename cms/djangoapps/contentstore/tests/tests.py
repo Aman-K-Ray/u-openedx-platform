@@ -264,20 +264,19 @@ class CourseKeyVerificationTestCase(CourseTestCase):
         super().setUp()
         self.course = CourseFactory.create(org='edX', number='test_course_key', display_name='Test Course')
 
-    @data(('edX/test_course_key/Test_Course', 200), ('garbage:edX+test_course_key+Test_Course', 404))
+    @data(('edX/test_course_key/Test_Course', 302, 200), ('garbage:edX+test_course_key+Test_Course', 404, 404))
     @unpack
-    @override_waffle_flag(toggles.LEGACY_STUDIO_IMPORT, True)
-    def test_course_key_decorator(self, course_key, status_code):
+    def test_course_key_decorator(self, course_key, import_status_code, import_status_handler_code):
         """
         Tests for the ensure_valid_course_key decorator.
         """
         url = f'/import/{course_key}'
         resp = self.client.get_html(url)
-        self.assertEqual(resp.status_code, status_code)  # noqa: PT009
+        self.assertEqual(resp.status_code, import_status_code)  # noqa: PT009
 
         url = '/import_status/{course_key}/{filename}'.format(
             course_key=course_key,
             filename='xyz.tar.gz'
         )
         resp = self.client.get_html(url)
-        self.assertEqual(resp.status_code, status_code)  # noqa: PT009
+        self.assertEqual(resp.status_code, import_status_handler_code)  # noqa: PT009
