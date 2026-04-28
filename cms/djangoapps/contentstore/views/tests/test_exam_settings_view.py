@@ -24,7 +24,6 @@ from common.djangoapps.util.testing import UrlResetMixin
         "ENABLE_PROCTORED_EXAMS": True,
     },
 )
-@override_waffle_flag(toggles.LEGACY_STUDIO_CERTIFICATES, True)
 @override_waffle_flag(toggles.LEGACY_STUDIO_SCHEDULE_DETAILS, True)
 @override_waffle_flag(toggles.LEGACY_STUDIO_CONFIGURATIONS, True)
 @override_waffle_flag(toggles.LEGACY_STUDIO_GRADING, True)
@@ -51,7 +50,6 @@ class TestExamSettingsView(CourseTestCase, UrlResetMixin):
 
     @override_waffle_flag(toggles.LEGACY_STUDIO_EXAM_SETTINGS, True)
     @ddt.data(
-        "certificates_list_handler",
         "settings_handler",
         "group_configurations_list_handler",
         "grading_handler",
@@ -68,7 +66,6 @@ class TestExamSettingsView(CourseTestCase, UrlResetMixin):
         self.assertNotContains(resp, 'Proctored Exam Settings')
 
     @ddt.data(
-        "certificates_list_handler",
         "settings_handler",
         "group_configurations_list_handler",
         "grading_handler",
