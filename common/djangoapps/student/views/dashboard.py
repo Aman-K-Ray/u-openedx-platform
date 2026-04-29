@@ -790,7 +790,6 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     context = {
         'urls': urls,
         'programs_data': programs_data,
-        'consent_required_courses': set(),
         'enrollment_message': enrollment_message,
         'redirect_message': Text(redirect_message),
         'account_activation_messages': account_activation_messages,
