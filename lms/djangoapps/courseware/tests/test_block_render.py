@@ -51,7 +51,7 @@ from xblock.runtime import (  # lint-amnesty, pylint: disable=wrong-import-order
     Mixologist,  # lint-amnesty, pylint: disable=wrong-import-order
 )
 from xblock.test.tools import TestRuntime  # lint-amnesty, pylint: disable=wrong-import-order
-from xblocks_contrib.problem.capa.tests.response_xml_factory import (
+from xblock_problem.capa.tests.response_xml_factory import (
     OptionResponseXMLFactory,  # lint-amnesty, pylint: disable=reimported
 )
 
