@@ -2954,6 +2954,7 @@ FACEBOOK_API_VERSION = None
 USER_STATE_BATCH_SIZE = 5000
 
 ############## Plugin Django Apps #########################
+
 INSTALLED_APPS.extend(get_plugin_apps(ProjectType.LMS))
 add_plugins(__name__, ProjectType.LMS, SettingsType.COMMON)
 
@@ -3267,6 +3268,10 @@ OPEN_EDX_FILTERS_CONFIG = {
         "fail_silently": True,
         "pipeline": ["enterprise.filters.accounts.AccountSettingsReadOnlyFieldsStep"],
     },
+    "org.openedx.learning.dashboard.render.started.v1": {
+        "fail_silently": True,
+        "pipeline": ["enterprise.filters.dashboard.DashboardContextEnricher"],
+    },
 }
 
 ############################## Miscellaneous ###############################
@@ -3281,12 +3286,3 @@ SSL_AUTH_EMAIL_DOMAIN = "MIT.EDU"
 SSL_AUTH_DN_FORMAT_STRING = (
     "/C=US/ST=Massachusetts/O=Massachusetts Institute of Technology/OU=Client CA v1/CN={0}/emailAddress={1}"
 )
-
-########################## OpenEdX Filters Configuration ####################
-
-OPEN_EDX_FILTERS_CONFIG = {
-    "org.openedx.learning.dashboard.render.started.v1": {
-        "fail_silently": True,
-        "pipeline": ["enterprise.filters.dashboard.DashboardContextEnricher"],
-    },
-}

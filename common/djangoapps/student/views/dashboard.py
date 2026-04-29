@@ -614,8 +614,6 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
             link_end=HTML("</a>"),
         )
 
-    enterprise_message = ''
-
     recovery_email_message = recovery_email_activation_message = None
     if is_secondary_email_feature_enabled():
         try:
@@ -792,7 +790,6 @@ def student_dashboard(request):  # lint-amnesty, pylint: disable=too-many-statem
     context = {
         'urls': urls,
         'programs_data': programs_data,
-        'enterprise_message': enterprise_message,
         'consent_required_courses': set(),
         'enrollment_message': enrollment_message,
         'redirect_message': Text(redirect_message),

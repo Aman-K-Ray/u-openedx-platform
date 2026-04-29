@@ -25,7 +25,10 @@ from django.shortcuts import redirect
 from django.template.context_processors import csrf
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.decorators.csrf import ensure_csrf_cookie  # lint-amnesty, pylint: disable=unused-import  # noqa: F401
+from django.views.decorators.csrf import (  # lint-amnesty, pylint: disable=unused-import  # noqa: F401
+    csrf_exempt,
+    ensure_csrf_cookie,
+)
 from django.views.decorators.http import (  # lint-amnesty, pylint: disable=unused-import
     require_GET,
     require_POST,
