@@ -197,24 +197,6 @@ def use_new_schedule_details_page(course_key):
     return not LEGACY_STUDIO_SCHEDULE_DETAILS.is_enabled(course_key)
 
 
-# .. toggle_name: legacy_studio.advanced_settings
-# .. toggle_implementation: WaffleFlag
-# .. toggle_default: False
-# .. toggle_description: Temporarily fall back to the old Studio Advanced Settings page.
-# .. toggle_use_cases: temporary
-# .. toggle_creation_date: 2025-03-14
-# .. toggle_target_removal_date: 2025-09-14
-# .. toggle_tickets: https://github.com/openedx/edx-platform/issues/36275
-# .. toggle_warning: In Ulmo, this toggle will be removed. Only the new (React-based) experience will be available.
-LEGACY_STUDIO_ADVANCED_SETTINGS = CourseWaffleFlag('legacy_studio.advanced_settings', __name__)
-
-
-def use_new_advanced_settings_page(course_key):
-    """
-    Returns a boolean if new studio advanced settings pafe mfe is enabled
-    """
-    return not LEGACY_STUDIO_ADVANCED_SETTINGS.is_enabled(course_key)
-
 
 # .. toggle_name: legacy_studio.grading
 # .. toggle_implementation: WaffleFlag

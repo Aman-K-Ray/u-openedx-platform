@@ -39,7 +39,6 @@
             export_url = reverse('export_handler', kwargs={'course_key_string': str(course_key)})
             settings_url = reverse('settings_handler', kwargs={'course_key_string': str(course_key)})
             grading_url = reverse('grading_handler', kwargs={'course_key_string': str(course_key)})
-            advanced_settings_url = reverse('advanced_settings_handler', kwargs={'course_key_string': str(course_key)})
             tabs_url = reverse('tabs_handler', kwargs={'course_key_string': str(course_key)})
             certificates_url = ''
             if settings.FEATURES.get("CERTIFICATES_HTML_VIEW") and context_course.cert_html_view_enabled:
@@ -49,7 +48,6 @@
             schedule_details_mfe_enabled = toggles.use_new_schedule_details_page(context_course.id)
             grading_mfe_enabled = toggles.use_new_grading_page(context_course.id)
             course_team_mfe_enabled = toggles.use_new_course_team_page(context_course.id)
-            advanced_settings_mfe_enabled = toggles.use_new_advanced_settings_page(context_course.id)
             import_mfe_enabled = toggles.use_new_import_page(context_course.id)
             export_mfe_enabled = toggles.use_new_export_page(context_course.id)
             optimizer_enabled = toggles.enable_course_optimizer(context_course.id)
@@ -156,12 +154,7 @@
                     <a href="${mfe_proctored_exam_settings_url}">${_("Proctored Exam Settings")}</a>
                   </li>
                   % endif
-                  % if has_studio_advanced_settings_access(request.user) and not advanced_settings_mfe_enabled:
-                  <li class="nav-item nav-course-settings-advanced">
-                    <a href="${advanced_settings_url}">${_("Advanced Settings")}</a>
-                  </li>
-                  % endif
-                  % if has_studio_advanced_settings_access(request.user) and advanced_settings_mfe_enabled:
+                  % if has_studio_advanced_settings_access(request.user):
                   <li class="nav-item nav-course-settings-advanced">
                     <a href="${get_advanced_settings_url(course_key)}">${_("Advanced Settings")}</a>
                   </li>
