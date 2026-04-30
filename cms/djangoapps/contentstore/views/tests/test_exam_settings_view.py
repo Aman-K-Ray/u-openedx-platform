@@ -25,7 +25,6 @@ from common.djangoapps.util.testing import UrlResetMixin
 @override_waffle_flag(toggles.LEGACY_STUDIO_SCHEDULE_DETAILS, True)
 @override_waffle_flag(toggles.LEGACY_STUDIO_CONFIGURATIONS, True)
 @override_waffle_flag(toggles.LEGACY_STUDIO_GRADING, True)
-@override_waffle_flag(toggles.LEGACY_STUDIO_ADVANCED_SETTINGS, True)
 class TestExamSettingsView(CourseTestCase, UrlResetMixin):
     """
     Unit tests for the exam settings view.
