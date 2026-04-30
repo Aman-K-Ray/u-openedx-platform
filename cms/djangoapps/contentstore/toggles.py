@@ -178,8 +178,6 @@ def use_react_markdown_editor(course_key):
     return ENABLE_REACT_MARKDOWN_EDITOR.is_enabled(course_key)
 
 
-# .. toggle_name: legacy_studio.schedule_details
-# .. toggle_implementation: WaffleFlag
 # .. toggle_name: legacy_studio.advanced_settings
 # .. toggle_implementation: WaffleFlag
 # .. toggle_default: False
