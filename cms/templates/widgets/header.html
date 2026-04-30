@@ -34,9 +34,7 @@
             assets_url = reverse('assets_handler', kwargs={'course_key_string': str(course_key)})
             textbooks_url = reverse('textbooks_list_handler', kwargs={'course_key_string': str(course_key)})
             videos_url = reverse('videos_handler', kwargs={'course_key_string': str(course_key)})
-            import_url = reverse('import_handler', kwargs={'course_key_string': str(course_key)})
             course_info_url = reverse('course_info_handler', kwargs={'course_key_string': str(course_key)})
-            export_url = reverse('export_handler', kwargs={'course_key_string': str(course_key)})
             settings_url = reverse('settings_handler', kwargs={'course_key_string': str(course_key)})
             grading_url = reverse('grading_handler', kwargs={'course_key_string': str(course_key)})
             advanced_settings_url = reverse('advanced_settings_handler', kwargs={'course_key_string': str(course_key)})
@@ -50,8 +48,6 @@
             grading_mfe_enabled = toggles.use_new_grading_page(context_course.id)
             course_team_mfe_enabled = toggles.use_new_course_team_page(context_course.id)
             advanced_settings_mfe_enabled = toggles.use_new_advanced_settings_page(context_course.id)
-            import_mfe_enabled = toggles.use_new_import_page(context_course.id)
-            export_mfe_enabled = toggles.use_new_export_page(context_course.id)
             optimizer_enabled = toggles.enable_course_optimizer(context_course.id)
             libraries_v2_enabled = toggles.libraries_v2_enabled()
 
@@ -186,26 +182,12 @@
             <div class="wrapper wrapper-nav-sub">
               <div class="nav-sub">
                 <ul>
-                  % if not import_mfe_enabled:
-                  <li class="nav-item nav-course-tools-import">
-                    <a href="${import_url}">${_("Import")}</a>
-                  </li>
-                  % endif
-                  % if import_mfe_enabled:
                   <li class="nav-item nav-course-tools-import">
                     <a href="${get_import_url(course_key)}">${_("Import")}</a>
                   </li>
-                  % endif
-                  % if not export_mfe_enabled:
-                  <li class="nav-item nav-course-tools-export">
-                    <a href="${export_url}">${_("Export")}</a>
-                  </li>
-                  % endif
-                  % if export_mfe_enabled:
                   <li class="nav-item nav-course-tools-export">
                     <a href="${get_export_url(course_key)}">${_("Export")}</a>
                   </li>
-                  % endif
                   % if toggles.EXPORT_GIT.is_enabled() and context_course.giturl:
                   <li class="nav-item nav-course-tools-export-git">
                     <a href="${reverse('export_git', kwargs=dict(course_key_string=str(course_key)))}">${_("Export to Git")}</a>
