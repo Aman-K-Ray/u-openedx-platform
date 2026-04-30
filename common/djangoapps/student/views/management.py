@@ -54,11 +54,7 @@ from common.djangoapps.edxmako.shortcuts import (  # lint-amnesty, pylint: disab
     render_to_response,
     render_to_string,  # noqa: F401
 )
-from openedx.core.djangolib.markup import HTML, Text
-from openedx.core.lib.api.authentication import BearerAuthenticationAllowInactiveUser
 from common.djangoapps.entitlements.models import CourseEntitlement
-from openedx.features.course_experience.url_helpers import make_learning_mfe_courseware_url
-from openedx.features.discounts.applicability import FIRST_PURCHASE_DISCOUNT_OVERRIDE_FLAG
 from common.djangoapps.student.email_helpers import generate_activation_email_context
 from common.djangoapps.student.helpers import (
     DISABLE_UNENROLL_CERT_STATES,

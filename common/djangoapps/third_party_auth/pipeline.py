@@ -84,14 +84,6 @@ from social_core.utils import module_member, slugify
 
 from common.djangoapps import third_party_auth
 from common.djangoapps.edxmako.shortcuts import render_to_string
-from lms.djangoapps.verify_student.models import SSOVerification
-from lms.djangoapps.verify_student.utils import earliest_allowed_verification_date
-from openedx.core.djangoapps.site_configuration import helpers as configuration_helpers
-from openedx.core.djangoapps.user_api import accounts
-from openedx.core.djangoapps.user_api.accounts.utils import username_suffix_generator
-from openedx.core.djangoapps.user_authn import cookies as user_authn_cookies
-from openedx.core.djangoapps.user_authn.toggles import is_auto_generated_username_enabled
-from openedx.core.djangoapps.user_authn.utils import is_safe_login_or_logout_redirect
 from common.djangoapps.third_party_auth.utils import (
     get_associated_user_by_email_response,
     get_user_from_email,
