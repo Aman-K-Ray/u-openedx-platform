@@ -38,7 +38,7 @@ class JwtTestCase(unittest.TestCase):
 
 @skip_unless_lms
 @freeze_time(time_snapshot)
-class TestSign(unittest.TestCase):
+class TestSign(JwtTestCase):
     """
     Tests for JWT creation and signing.
     """
@@ -47,7 +47,7 @@ class TestSign(unittest.TestCase):
         token = create_jwt(test_user_id, test_timeout, {}, self.test_now)
 
         decoded = unpack_and_verify(token)
-        assert decoded == expected_full_token
+        assert decoded == self.expected_full_token
 
     def test_create_jwt_with_claims(self):
         token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
@@ -68,7 +68,7 @@ class TestSign(unittest.TestCase):
 
 @skip_unless_lms
 @freeze_time(time_snapshot)
-class TestUnpack(unittest.TestCase):
+class TestUnpack(JwtTestCase):
     """
     Tests for JWT unpacking.
     """
@@ -77,7 +77,7 @@ class TestUnpack(unittest.TestCase):
         token = create_jwt(test_user_id, test_timeout, {}, self.test_now)
         decoded = unpack_jwt(token, test_user_id, self.test_now)
 
-        assert decoded == expected_full_token
+        assert decoded == self.expected_full_token
 
     def test_unpack_jwt_with_claims(self):
         token = create_jwt(test_user_id, test_timeout, test_claims, self.test_now)
